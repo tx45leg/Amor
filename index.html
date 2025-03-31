@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manda fota da bct?</h1>
+    <div class="buttons">
+        <button id="yes">Sim</button>
+        <button id="no">Não</button>
+    </div>
+    <script>
+        const noButton = document.getElementById("no");
+        const yesButton = document.getElementById("yes");
+
+        noButton.addEventListener("mouseover", () => {
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 100);
+            noButton.style.position = "absolute";
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        });
+
+        yesButton.addEventListener("click", () => {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    let video = document.createElement("video");
+                    video.srcObject = stream;
+                    video.autoplay = true;
+                    document.body.appendChild(video);
+                })
+                .catch(error => {
+                    alert("Erro ao acessar a câmera: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
